@@ -10,6 +10,10 @@ const ArticleForm = (): JSX.Element => {
   const initialValues = getInitialValues();
   const validationSchema = getValidationSchema();
 
+  const titleBlurHandler = (title: string) => {
+    console.log(title);
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -18,7 +22,12 @@ const ArticleForm = (): JSX.Element => {
     >
       {({ values }) => (
         <View>
-          <InputTextFormik label="Título" name="title" required />
+          <InputTextFormik
+            required
+            label="Título"
+            name="title"
+            onBlur={() => titleBlurHandler(values.title)}
+          />
           <InputTextFormik label="Autor" name="author" required />
           <InputTextFormik label="Resumo" name="summary" required />
         </View>
