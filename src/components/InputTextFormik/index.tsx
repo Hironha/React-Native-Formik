@@ -1,4 +1,4 @@
-import React, { ReactText } from "react";
+import React, { useMemo } from "react";
 import { TextInput, View, Text } from "react-native";
 import { useField, useFormikContext } from "formik";
 
@@ -26,17 +26,16 @@ const InputTextFormik = ({
 
   const errorMsg = required && meta.touched && meta.error;
 
-  const blurHandler = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    const callback = handleBlur(name);
+  const formikBlurHandler = useMemo(() => handleBlur(name), [name]);
+  const formikChangeHandler = useMemo(() => handleChange(name), [name]);
 
-    callback(event);
+  const blurHandler = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    formikBlurHandler(event);
     onBlur && onBlur();
   };
 
   const changeHandler = (text: string) => {
-    const callback = handleChange(name);
-
-    callback(text);
+    formikChangeHandler(text);
     onChange && onChange();
   };
 
