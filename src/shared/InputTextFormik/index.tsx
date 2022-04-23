@@ -4,6 +4,8 @@ import { useField, useFormikContext } from "formik";
 
 import type { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 
+import type { TextInputProps } from "react-native";
+
 import { styles } from "./styles";
 
 type InputTextFormikProps = {
@@ -11,11 +13,7 @@ type InputTextFormikProps = {
   name: string;
   focused?: boolean;
   required?: boolean;
-  onBlur?: () => void;
-  onFocus?: () => void;
-  onChange?: () => void;
-  onSubmitEditing?: () => void;
-};
+} & Omit<TextInputProps, "ref" | "style">;
 
 const InputTextFormik = ({
   name,
@@ -24,8 +22,9 @@ const InputTextFormik = ({
   required = false,
   onBlur,
   onFocus,
-  onChange,
+  onChangeText,
   onSubmitEditing,
+  ...inputProps
 }: InputTextFormikProps): JSX.Element => {
   const [field, meta] = useField(name);
   const { handleBlur, handleChange } = useFormikContext();
@@ -39,12 +38,12 @@ const InputTextFormik = ({
 
   const blurHandler = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
     formikBlurHandler(event);
-    onBlur && onBlur();
+    onBlur && onBlur(event);
   };
 
   const changeHandler = (text: string) => {
     formikChangeHandler(text);
-    onChange && onChange();
+    onChangeText && onChangeText(text);
   };
 
   useEffect(() => {
@@ -57,6 +56,7 @@ const InputTextFormik = ({
     <View style={styles.container}>
       <Text>{label}</Text>
       <TextInput
+        {...inputProps}
         ref={inputRef}
         style={styles.input}
         value={field.value}
