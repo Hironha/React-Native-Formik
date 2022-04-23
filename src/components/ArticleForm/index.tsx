@@ -2,7 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { View } from "react-native";
 
-import InputTextFormik from "@components/InputTextFormik";
+import InputTextFormik from "@shared/InputTextFormik";
 
 import { getInitialValues, getValidationSchema } from "./util";
 
