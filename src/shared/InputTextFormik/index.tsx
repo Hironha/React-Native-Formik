@@ -8,18 +8,28 @@ import type { TextInputProps } from "react-native";
 
 import { styles } from "./styles";
 
+/*
+  ** Considerações **
+  1 -> Este componente deve ser utilizado somente como um filho de Formik, pois utiliza contextos definidos
+    por ele;
+  
+  2 -> Este componente é controlado, isto é, possui um estado para definir o valor do input de texto e seu dado
+    é alterado a cada mudança do texto;
+
+  3 -> As mensagens de validação são totalmente dependentes da validação do formik, então tenha certeza
+    de passar uma validação adequada.
+*/
+
 type InputTextFormikProps = {
   label: string;
   name: string;
   focused?: boolean;
-  required?: boolean;
 } & Omit<TextInputProps, "ref" | "style">;
 
 const InputTextFormik = ({
   name,
   label,
   focused,
-  required = false,
   onBlur,
   onFocus,
   onChangeText,
@@ -31,7 +41,7 @@ const InputTextFormik = ({
 
   const inputRef = useRef<TextInput>(null);
 
-  const errorMsg = required && meta.touched && meta.error;
+  const errorMsg = meta.touched && meta.error;
 
   const formikBlurHandler = useMemo(() => handleBlur(name), [name]);
   const formikChangeHandler = useMemo(() => handleChange(name), [name]);

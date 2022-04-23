@@ -45,7 +45,6 @@ const ArticleForm = (): JSX.Element => {
       {({ values }) => (
         <View>
           <InputTextFormik
-            required
             label="Título"
             name="title"
             focused={focus.title}
@@ -54,7 +53,6 @@ const ArticleForm = (): JSX.Element => {
             onBlur={() => titleBlurHandler(values.title)}
           />
           <InputTextFormik
-            required
             label="Autor"
             name="author"
             focused={focus.author}
@@ -62,7 +60,6 @@ const ArticleForm = (): JSX.Element => {
             onSubmitEditing={focusNext}
           />
           <InputTextFormik
-            required
             label="Resumo"
             name="summary"
             focused={focus.summary}
