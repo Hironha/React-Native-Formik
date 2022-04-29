@@ -2,12 +2,26 @@ import React from "react";
 
 import { Stack } from "./Stack";
 
-import Test from "@components/Test";
+import CreateArticle from "@screens/CreateArticle";
+
+type Screen = {
+  name: string;
+  component: React.FC;
+};
+
+const SCREENS: Screen[] = [
+  {
+    name: "Criar Artigo",
+    component: CreateArticle,
+  },
+];
 
 const Navigation = (): JSX.Element => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Formulário" component={Test} />
+      {SCREENS.map((screen) => (
+        <Stack.Screen key={screen.name} {...screen} />
+      ))}
     </Stack.Navigator>
   );
 };

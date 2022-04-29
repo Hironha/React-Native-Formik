@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Formik } from "formik";
 import { View } from "react-native";
 
@@ -10,8 +10,10 @@ import { getInitialValues, getValidationSchema } from "./util";
 
 import type { ArticleFormValues } from "./util";
 
+type UsedArticleValues = Omit<ArticleFormValues, "published" | "published_at">;
+
 const INIT_INPUTS_FOCUS: {
-  [key in keyof Omit<ArticleFormValues, "published" | "published_at">]: boolean;
+  [key in keyof UsedArticleValues]: boolean;
 } = {
   title: true,
   author: false,
@@ -24,16 +26,14 @@ const ArticleForm = (): JSX.Element => {
   const [focus, setFocus, focusNext] = useAutofocus(INIT_INPUTS_FOCUS);
 
   const initialValues = getInitialValues();
-  const validationSchema = getValidationSchema();
+  const validationSchema = useMemo(() => getValidationSchema(), []);
 
   const titleBlurHandler = (title: string) => {
     console.log(title);
   };
 
-  const getFocusHandler = (key: keyof Omit<ArticleFormValues, "published" | "published_at">) => {
-    return () => {
-      setFocus(key);
-    };
+  const getFocusHandler = (key: keyof UsedArticleValues) => () => {
+    setFocus(key);
   };
 
   return (

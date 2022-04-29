@@ -6,7 +6,7 @@ import type { NativeSyntheticEvent, TextInputFocusEventData } from "react-native
 
 import type { TextInputProps } from "react-native";
 
-import { styles } from "./styles";
+import { Container, Input } from "./styles";
 
 /*
   ** Considerações **
@@ -63,12 +63,11 @@ const InputTextFormik = ({
   }, [focused]);
 
   return (
-    <View style={styles.container}>
+    <Container>
       <Text>{label}</Text>
-      <TextInput
+      <Input
         {...inputProps}
         ref={inputRef}
-        style={styles.input}
         value={field.value}
         onBlur={blurHandler}
         onFocus={onFocus}
@@ -76,7 +75,7 @@ const InputTextFormik = ({
         onSubmitEditing={onSubmitEditing}
       />
       {errorMsg && <Text>{errorMsg}</Text>}
-    </View>
+    </Container>
   );
 };
 
