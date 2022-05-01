@@ -4,7 +4,7 @@ import { View } from "react-native";
 
 import InputTextFormik from "@shared/InputTextFormik";
 
-import { useAutofocus } from "@hooks/useAutofocus";
+import { useAutofocus } from "@hooks/useAutoFocus";
 
 import { getInitialValues, getValidationSchema } from "./util";
 

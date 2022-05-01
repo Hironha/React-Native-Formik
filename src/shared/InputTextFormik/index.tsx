@@ -57,9 +57,9 @@ const InputTextFormik = ({
   };
 
   useEffect(() => {
-    if (!inputRef.current || !focused) return;
+    const shouldFocus = inputRef.current && focused;
 
-    inputRef.current.focus();
+    shouldFocus && inputRef.current.focus();
   }, [focused]);
 
   return (
